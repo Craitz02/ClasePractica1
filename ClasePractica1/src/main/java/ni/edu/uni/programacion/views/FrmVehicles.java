@@ -72,7 +72,7 @@ public class FrmVehicles extends javax.swing.JFrame {
         jPanel1.add(btnNew);
 
         btnView.setBackground(new java.awt.Color(0, 204, 204));
-        btnView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Webp.net-resizeimage (4).png"))); // NOI18N
+        btnView.setIcon(new javax.swing.ImageIcon("C:\\Users\\JADPA26\\Documents\\NetBeansProjects\\ClasePractica1\\ClasePractica1\\src\\main\\resources\\Webp.net-resizeimage (4).png")); // NOI18N
         btnView.setText("View");
         btnView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
