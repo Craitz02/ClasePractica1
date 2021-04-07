@@ -5,17 +5,20 @@
  */
 package ni.edu.uni.programacion.views;
 
+import ni.edu.uni.programacion.views.panels.PnlVehicle;
+
 /**
  *
  * @author JADPA26
  */
 public class FrmVehicleApp extends javax.swing.JFrame {
-
+    private PnlVehicle pnlVehicle;
     /**
      * Creates new form FrmVehicleApp
      */
     public FrmVehicleApp() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -27,12 +30,26 @@ public class FrmVehicleApp extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dlgNew = new javax.swing.JDialog();
         pnlImage = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mniNew = new javax.swing.JMenuItem();
         mniView = new javax.swing.JMenuItem();
         mniExit = new javax.swing.JMenuItem();
+
+        javax.swing.GroupLayout dlgNewLayout = new javax.swing.GroupLayout(dlgNew.getContentPane());
+        dlgNew.getContentPane().setLayout(dlgNewLayout);
+        dlgNewLayout.setHorizontalGroup(
+            dlgNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        dlgNewLayout.setVerticalGroup(
+            dlgNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        dlgNew.getAccessibleContext().setAccessibleName("New Vehicle");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,6 +70,11 @@ public class FrmVehicleApp extends javax.swing.JFrame {
 
         mniNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mniNew.setText("New");
+        mniNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniNewActionPerformed(evt);
+            }
+        });
         jMenu1.add(mniNew);
 
         mniView.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -72,12 +94,18 @@ public class FrmVehicleApp extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
+        getAccessibleContext().setAccessibleName("Vehicle App");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniExitActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mniExitActionPerformed
+
+    private void mniNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniNewActionPerformed
+        dlgNew.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_mniNewActionPerformed
 
     /**
      * @param args the command line arguments
@@ -115,6 +143,7 @@ public class FrmVehicleApp extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog dlgNew;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem mniExit;
