@@ -5,6 +5,10 @@
  */
 package ni.edu.uni.programacion.views;
 
+import java.awt.BorderLayout;
+import javax.swing.JComponent;
+import ni.edu.uni.programacion.controllers.PnlVehicleController;
+import ni.edu.uni.programacion.views.panels.DialogVehicle;
 import ni.edu.uni.programacion.views.panels.PnlVehicle;
 
 /**
@@ -13,12 +17,14 @@ import ni.edu.uni.programacion.views.panels.PnlVehicle;
  */
 public class FrmVehicleApp extends javax.swing.JFrame {
     private PnlVehicle pnlVehicle;
+    private PnlVehicleController pnlVehicleController;
+    private DialogVehicle dialogVehicle;
+    
     /**
      * Creates new form FrmVehicleApp
      */
     public FrmVehicleApp() {
         initComponents();
-        setLocationRelativeTo(null);
     }
 
     /**
@@ -31,7 +37,7 @@ public class FrmVehicleApp extends javax.swing.JFrame {
     private void initComponents() {
 
         dlgNew = new javax.swing.JDialog();
-        pnlImage = new javax.swing.JPanel();
+        dskPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mniNew = new javax.swing.JMenuItem();
@@ -53,18 +59,18 @@ public class FrmVehicleApp extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout pnlImageLayout = new javax.swing.GroupLayout(pnlImage);
-        pnlImage.setLayout(pnlImageLayout);
-        pnlImageLayout.setHorizontalGroup(
-            pnlImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout dskPaneLayout = new javax.swing.GroupLayout(dskPane);
+        dskPane.setLayout(dskPaneLayout);
+        dskPaneLayout.setHorizontalGroup(
+            dskPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
-        pnlImageLayout.setVerticalGroup(
-            pnlImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        dskPaneLayout.setVerticalGroup(
+            dskPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 277, Short.MAX_VALUE)
         );
 
-        getContentPane().add(pnlImage, java.awt.BorderLayout.CENTER);
+        getContentPane().add(dskPane, java.awt.BorderLayout.CENTER);
 
         jMenu1.setText("Options");
 
@@ -104,7 +110,8 @@ public class FrmVehicleApp extends javax.swing.JFrame {
     }//GEN-LAST:event_mniExitActionPerformed
 
     private void mniNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniNewActionPerformed
-        dlgNew.setVisible(rootPaneCheckingEnabled);
+        dialogVehicle = new DialogVehicle(this, true);
+        dialogVehicle.setVisible(true);
     }//GEN-LAST:event_mniNewActionPerformed
 
     /**
@@ -144,11 +151,11 @@ public class FrmVehicleApp extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog dlgNew;
+    private javax.swing.JDesktopPane dskPane;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem mniExit;
     private javax.swing.JMenuItem mniNew;
     private javax.swing.JMenuItem mniView;
-    private javax.swing.JPanel pnlImage;
     // End of variables declaration//GEN-END:variables
 }
