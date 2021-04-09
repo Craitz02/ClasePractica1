@@ -45,6 +45,7 @@ public class DialogVehicle extends javax.swing.JDialog {
         pnlContent = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("New Vehicle");
 
         pnlContent.setLayout(new java.awt.BorderLayout());
         try {
@@ -61,8 +62,11 @@ public class DialogVehicle extends javax.swing.JDialog {
         setBounds(0, 0, 416, 339);
     }// </editor-fold>//GEN-END:initComponents
     
-    private void addComponent(JComponent component) {        
-        pnlContent.add(component, BorderLayout.CENTER);        
+    private void addComponent(JComponent component) {
+        pnlContent.removeAll();
+        pnlContent.add(component, BorderLayout.CENTER);
+        pnlContent.repaint();
+        this.validate();
     }
 
     /**

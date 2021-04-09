@@ -19,6 +19,7 @@ public class FrmVehicleApp extends javax.swing.JFrame {
     private PnlVehicle pnlVehicle;
     private PnlVehicleController pnlVehicleController;
     private DialogVehicle dialogVehicle;
+    private IFrmVehicle ifrmVehicle;
     
     /**
      * Creates new form FrmVehicleApp
@@ -85,6 +86,11 @@ public class FrmVehicleApp extends javax.swing.JFrame {
 
         mniView.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mniView.setText("View");
+        mniView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniViewActionPerformed(evt);
+            }
+        });
         jMenu1.add(mniView);
 
         mniExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
@@ -113,6 +119,12 @@ public class FrmVehicleApp extends javax.swing.JFrame {
         dialogVehicle = new DialogVehicle(this, true);
         dialogVehicle.setVisible(true);
     }//GEN-LAST:event_mniNewActionPerformed
+
+    private void mniViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniViewActionPerformed
+        ifrmVehicle = new IFrmVehicle();
+        this.dskPane.add(ifrmVehicle);
+        ifrmVehicle.show();
+    }//GEN-LAST:event_mniViewActionPerformed
 
     /**
      * @param args the command line arguments
