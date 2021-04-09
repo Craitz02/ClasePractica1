@@ -10,8 +10,11 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
+import ni.edu.uni.programacion.controllers.PnlVehicleController;
 import ni.edu.uni.programacion.controllers.PnlVehicleShowController;
+import ni.edu.uni.programacion.views.panels.DialogVehicle;
 import ni.edu.uni.programacion.views.panels.PnlShow;
+import ni.edu.uni.programacion.views.panels.PnlVehicle;
 
 /**
  *
@@ -20,7 +23,7 @@ import ni.edu.uni.programacion.views.panels.PnlShow;
 public class IFrmVehicle extends javax.swing.JInternalFrame {
     PnlShow pnlShow;
     PnlVehicleShowController pnlShowController;
-    
+    DialogVehicle dialogVehicle;
     /**
      * Creates new form IFrmVehicle
      */
@@ -85,13 +88,12 @@ public class IFrmVehicle extends javax.swing.JInternalFrame {
         addComponent(pnlShow);
         getContentPane().add(pnlTable, java.awt.BorderLayout.CENTER);
 
-        getAccessibleContext().setAccessibleName("View Vehicle");
-
-        setBounds(0, 0, 400, 300);
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-        // TODO add your handling code here:
+        dialogVehicle = new DialogVehicle(null, true);
+        dialogVehicle.setVisible(true);
     }//GEN-LAST:event_btnNewActionPerformed
     
     private void addComponent(JComponent component) {

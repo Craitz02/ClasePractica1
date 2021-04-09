@@ -59,7 +59,7 @@ public class DialogVehicle extends javax.swing.JDialog {
 
         getAccessibleContext().setAccessibleName("Add Vehicle");
 
-        setBounds(0, 0, 416, 339);
+        setBounds(0, 0, 400, 600);
     }// </editor-fold>//GEN-END:initComponents
     
     private void addComponent(JComponent component) {
