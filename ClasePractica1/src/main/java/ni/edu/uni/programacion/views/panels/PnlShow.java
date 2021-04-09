@@ -117,6 +117,7 @@ public class PnlShow extends javax.swing.JPanel {
         jPanel1.add(btnSearch, gridBagConstraints);
 
         btnShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Webp.net-resizeimage (1).png"))); // NOI18N
+        btnShow.setText("Mostrar Todo");
         jPanel1.add(btnShow, new java.awt.GridBagConstraints());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

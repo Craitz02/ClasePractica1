@@ -59,6 +59,7 @@ public class FrmVehicleApp extends javax.swing.JFrame {
         dlgNew.getAccessibleContext().setAccessibleName("New Vehicle");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(700, 577));
 
         javax.swing.GroupLayout dskPaneLayout = new javax.swing.GroupLayout(dskPane);
         dskPane.setLayout(dskPaneLayout);
@@ -78,7 +79,7 @@ public class FrmVehicleApp extends javax.swing.JFrame {
         mniNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mniNew.setBackground(new java.awt.Color(255, 204, 204));
         mniNew.setForeground(new java.awt.Color(0, 0, 0));
-        mniNew.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\ClasePractica1\\ClasePractica1\\src\\main\\resources\\images\\Webp.net-resizeimage (5).png")); // NOI18N
+        mniNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Webp.net-resizeimage (5).png"))); // NOI18N
         mniNew.setText("New");
         mniNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,7 +91,7 @@ public class FrmVehicleApp extends javax.swing.JFrame {
         mniView.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mniView.setBackground(new java.awt.Color(255, 204, 204));
         mniView.setForeground(new java.awt.Color(0, 0, 0));
-        mniView.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\ClasePractica1\\ClasePractica1\\src\\main\\resources\\images\\Webp.net-resizeimage (6).png")); // NOI18N
+        mniView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Webp.net-resizeimage (6).png"))); // NOI18N
         mniView.setText("View");
         mniView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,7 +103,7 @@ public class FrmVehicleApp extends javax.swing.JFrame {
         mniExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mniExit.setBackground(new java.awt.Color(255, 204, 204));
         mniExit.setForeground(new java.awt.Color(0, 0, 0));
-        mniExit.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\ClasePractica1\\ClasePractica1\\src\\main\\resources\\images\\Webp.net-resizeimage (7).png")); // NOI18N
+        mniExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Webp.net-resizeimage (7).png"))); // NOI18N
         mniExit.setText("Exit");
         mniExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
