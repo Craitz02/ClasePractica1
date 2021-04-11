@@ -6,13 +6,12 @@
 package ni.edu.uni.programacion.views.panels;
 
 import java.awt.BorderLayout;
-import java.beans.PropertyChangeListener;
 import java.io.FileNotFoundException;
 import java.util.Observer;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
 import ni.edu.uni.programacion.controllers.PnlVehicleController;
 import ni.edu.uni.programacion.controllers.PnlVehicleShowController;
+import ni.edu.uni.programacion.views.panels.PnlVehicle;
+import ni.edu.uni.programacion.views.panels.PnlShow;
 
 /**
  *

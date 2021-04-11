@@ -12,10 +12,10 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import ni.edu.uni.programacion.backend.dao.implementation.JsonVehicleDaoImpl;
 import ni.edu.uni.programacion.backend.pojo.Vehicle;
 import ni.edu.uni.programacion.controllers.PnlVehicleShowController;
+import ni.edu.uni.programacion.models.VehicleTableModel;
 import ni.edu.uni.programacion.views.panels.DialogVehicle;
 import ni.edu.uni.programacion.views.panels.PnlShow;
 
@@ -104,7 +104,7 @@ public class IFrmVehicle extends javax.swing.JInternalFrame {
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         dialogVehicle = new DialogVehicle(null, true);
-        //dialogVehicle.addObserver(pnlShowController.getTblViewModel());
+        dialogVehicle.addObserver(pnlShowController.getTblViewModel());
         dialogVehicle.setVisible(true);
     }//GEN-LAST:event_btnNewActionPerformed
 
@@ -116,6 +116,7 @@ public class IFrmVehicle extends javax.swing.JInternalFrame {
         }
         dialogVehicle= new DialogVehicle(null, true);
         dialogVehicle.setPnlShowReference(pnlShow, pnlShowController);
+        //dialogVehicle.addObserver(pnlShowController.getTblViewModel());
         dialogVehicle.setVisible(true);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -143,7 +144,7 @@ public class IFrmVehicle extends javax.swing.JInternalFrame {
             jsonVehicleDaoImpl = new JsonVehicleDaoImpl();
             jsonVehicleDaoImpl.delete(vehicle);
             
-            DefaultTableModel modelo =  (DefaultTableModel) pnlShow.getTblShow().getModel(); 
+            VehicleTableModel modelo =  (VehicleTableModel) pnlShow.getTblShow().getModel(); 
             modelo.removeRow(row);
         } catch (FileNotFoundException ex)
         {

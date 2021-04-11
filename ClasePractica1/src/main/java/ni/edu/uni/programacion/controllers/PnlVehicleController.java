@@ -9,8 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,7 +17,6 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -30,12 +27,11 @@ import ni.edu.uni.programacion.backend.dao.implementation.JsonVehicleDaoImpl;
 import ni.edu.uni.programacion.backend.pojo.Vehicle;
 import ni.edu.uni.programacion.backend.pojo.VehicleSubModel;
 import ni.edu.uni.programacion.views.panels.PnlVehicle;
-
 /**
  *
  * @author Sistemas-05
  */
-public class PnlVehicleController {
+public class PnlVehicleController extends java.util.Observable{
     private PnlVehicle pnlVehicle;
     private JsonVehicleDaoImpl jvdao;
     private List<VehicleSubModel> vSubModels;
@@ -47,10 +43,10 @@ public class PnlVehicleController {
     private DefaultComboBoxModel cmbModelStatus;
     private String status[] = new String[]{"Active","Mantainance","Not available"};
     private JFileChooser fileChooser;
-    
     private boolean isNew = false;
     private boolean isUpdate = false;
     private int vehicleIdToEdit;
+    private Vehicle vehicle;
     
     public void setVehicleIdToEdit(int vehicleIdToEdit)
     {
@@ -135,13 +131,32 @@ public class PnlVehicleController {
         status = pnlVehicle.getCmbStatus().getSelectedItem().toString();
         
         
-        Vehicle v = new Vehicle(stock, year, make, model, style, vin, 
+        vehicle = new Vehicle(stock, year, make, model, style, vin, 
                 eColor, iColor, miles, price, transmission, engine, image, status);
         try {
-            vehicleValidation(v);
-            jvdao.create(v);
-            JOptionPane.showMessageDialog(null, "Vehicle save sucessfully.",
-                    "Saved message",JOptionPane.INFORMATION_MESSAGE);
+            vehicleValidation(vehicle);
+            
+            if(isNew)
+            {   
+                jvdao.create(vehicle);
+                setChanged();
+                notifyObservers(vehicle);
+                JOptionPane.showMessageDialog(null, "Vehicle saved sucessfully.",
+                "Saved message",JOptionPane.INFORMATION_MESSAGE);
+                
+            }
+            
+            if(isUpdate)
+            {
+                vehicle.setId(vehicleIdToEdit);
+                jvdao.update(vehicle);
+                setChanged();
+                notifyObservers(isUpdate);
+             
+            JOptionPane.showMessageDialog(null, "Vehicle updated sucessfully.",
+                    "Updating message",JOptionPane.INFORMATION_MESSAGE);
+            }
+            
         } catch (IOException ex) {
             Logger.getLogger(PnlVehicleController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
@@ -179,7 +194,5 @@ public class PnlVehicleController {
         }
     }
 
-    public void addObserver(Observer ob) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 }
