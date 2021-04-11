@@ -31,8 +31,7 @@ import ni.edu.uni.programacion.views.panels.PnlShow;
 public class PnlVehicleShowController {
 
     private PnlShow pnlShow;
-    
-    
+
     private DefaultTableModel model;
     private Gson gson;
     private JsonVehicleDaoImpl jvdao;
@@ -42,44 +41,42 @@ public class PnlVehicleShowController {
         this.pnlShow = pnlShow;
         initcomponent();
     }
-    private void initcomponent () throws FileNotFoundException {
-    model=(DefaultTableModel) pnlShow.getTblShow().getModel();
-    jvdao = new JsonVehicleDaoImpl();
-    pnlShow.getBtnShow().addActionListener((e) ->{
-        try {
-            btnShowAllActionListener(e);
-        } catch (IOException ex) {
-            Logger.getLogger(PnlVehicleShowController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+    private void initcomponent() throws FileNotFoundException {
+        model = (DefaultTableModel) pnlShow.getTblShow().getModel();
+        jvdao = new JsonVehicleDaoImpl();
+        pnlShow.getBtnShow().addActionListener((e) -> {
+            try {
+                btnShowAllActionListener(e);
+            } catch (IOException ex) {
+                Logger.getLogger(PnlVehicleShowController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
-    pnlShow.getTxtSearch().addKeyListener(new KeyAdapter()
-        {
-            public void keyReleased(final KeyEvent e)
-            {
+        pnlShow.getTxtSearch().addKeyListener(new KeyAdapter() {
+            public void keyReleased(final KeyEvent e) {
                 TableRowSorter TFilter = new TableRowSorter(pnlShow.getTblShow().getModel());
                 String s = pnlShow.getTxtSearch().getText();
-                
+
                 pnlShow.getTxtSearch().setText(s);
-                
+
                 FilterTabe(pnlShow.getCmbSearch().getSelectedIndex(), TFilter);
             }
         });
-        
+
     }
-    private void FilterTabe(int a, TableRowSorter filter)
-    {
+
+    private void FilterTabe(int a, TableRowSorter filter) {
         filter.setRowFilter(RowFilter.regexFilter(pnlShow.getTxtSearch().getText(), a));
         pnlShow.getTblShow().setRowSorter(filter);
     }
-    private void btnShowAllActionListener(ActionEvent e) throws IOException{
+
+    private void btnShowAllActionListener(ActionEvent e) throws IOException {
         list = (List<Vehicle>) jvdao.getAll();
-        while (list.size() > pnlShow.getTblShow().getRowCount())
-        {
+        while (list.size() > pnlShow.getTblShow().getRowCount()) {
             model.addRow(new Object[]{});
         }
 
-        for (int i = 0; i < list.size(); i++) 
-        {
+        for (int i = 0; i < list.size(); i++) {
             pnlShow.getTblShow().setValueAt((i + 1), i, 0);
             pnlShow.getTblShow().setValueAt(list.get(i).getStockNumber(), i, 1);
             pnlShow.getTblShow().setValueAt(list.get(i).getYear(), i, 2);
@@ -94,13 +91,13 @@ public class PnlVehicleShowController {
             pnlShow.getTblShow().setValueAt(list.get(i).getTransmission().toString(), i, 11);
             pnlShow.getTblShow().setValueAt(list.get(i).getEngine(), i, 12);
             pnlShow.getTblShow().setValueAt(list.get(i).getImage(), i, 13);
-             
+
         }
         pnlShow.getBtnShow().setText("Mostrar Todo");
     }
-    
+
+    public List<Vehicle> getVehicles() {
+        return list;
     }
-    
-    
 
-
+}

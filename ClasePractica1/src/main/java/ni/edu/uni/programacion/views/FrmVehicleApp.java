@@ -41,8 +41,7 @@ public class FrmVehicleApp extends javax.swing.JFrame {
         dskPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        mniNew = new javax.swing.JMenuItem();
-        mniView = new javax.swing.JMenuItem();
+        mniVehicle = new javax.swing.JMenuItem();
         mniExit = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout dlgNewLayout = new javax.swing.GroupLayout(dlgNew.getContentPane());
@@ -76,29 +75,17 @@ public class FrmVehicleApp extends javax.swing.JFrame {
 
         jMenu1.setText("Options");
 
-        mniNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        mniNew.setBackground(new java.awt.Color(255, 204, 204));
-        mniNew.setForeground(new java.awt.Color(0, 0, 0));
-        mniNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Webp.net-resizeimage (5).png"))); // NOI18N
-        mniNew.setText("New");
-        mniNew.addActionListener(new java.awt.event.ActionListener() {
+        mniVehicle.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniVehicle.setBackground(new java.awt.Color(255, 204, 204));
+        mniVehicle.setForeground(new java.awt.Color(0, 0, 0));
+        mniVehicle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Webp.net-resizeimage (6).png"))); // NOI18N
+        mniVehicle.setText("Vehicle");
+        mniVehicle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniNewActionPerformed(evt);
+                mniVehicleActionPerformed(evt);
             }
         });
-        jMenu1.add(mniNew);
-
-        mniView.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        mniView.setBackground(new java.awt.Color(255, 204, 204));
-        mniView.setForeground(new java.awt.Color(0, 0, 0));
-        mniView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Webp.net-resizeimage (6).png"))); // NOI18N
-        mniView.setText("View");
-        mniView.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniViewActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mniView);
+        jMenu1.add(mniVehicle);
 
         mniExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mniExit.setBackground(new java.awt.Color(255, 204, 204));
@@ -125,16 +112,11 @@ public class FrmVehicleApp extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_mniExitActionPerformed
 
-    private void mniNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniNewActionPerformed
-        dialogVehicle = new DialogVehicle(this, true);
-        dialogVehicle.setVisible(true);
-    }//GEN-LAST:event_mniNewActionPerformed
-
-    private void mniViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniViewActionPerformed
+    private void mniVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniVehicleActionPerformed
         ifrmVehicle = new IFrmVehicle();
         this.dskPane.add(ifrmVehicle);
         ifrmVehicle.show();
-    }//GEN-LAST:event_mniViewActionPerformed
+    }//GEN-LAST:event_mniVehicleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,7 +159,6 @@ public class FrmVehicleApp extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem mniExit;
-    private javax.swing.JMenuItem mniNew;
-    private javax.swing.JMenuItem mniView;
+    private javax.swing.JMenuItem mniVehicle;
     // End of variables declaration//GEN-END:variables
 }

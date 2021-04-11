@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -45,11 +47,32 @@ public class PnlVehicleController {
     private String status[] = new String[]{"Active","Mantainance","Not available"};
     private JFileChooser fileChooser;
     
+    private boolean isNew = false;
+    private boolean isUpdate = false;
+    private int vehicleIdToEdit;
+    
+    public void setVehicleIdToEdit(int vehicleIdToEdit)
+    {
+        this.vehicleIdToEdit = vehicleIdToEdit;
+    }
+
+    public void setIsNew(boolean isNew)
+    {
+        this.isNew = isNew;
+        isUpdate = false;
+    }
+
+    public void setIsUpdate(boolean isUpdate)
+    {
+        this.isUpdate = isUpdate;
+        isNew = false;
+        
+    }
     public PnlVehicleController(PnlVehicle pnlVehicle) throws FileNotFoundException {
         this.pnlVehicle = pnlVehicle;
         initComponent();        
     }
-    
+        
     private void initComponent()  throws FileNotFoundException{
         jvdao = new JsonVehicleDaoImpl();
         gson = new Gson();

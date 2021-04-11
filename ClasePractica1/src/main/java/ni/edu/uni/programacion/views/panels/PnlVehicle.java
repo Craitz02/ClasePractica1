@@ -6,6 +6,7 @@
 package ni.edu.uni.programacion.views.panels;
 
 import java.awt.Color;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -98,6 +99,11 @@ public class PnlVehicle extends javax.swing.JPanel {
     public JTextField getTxtStyle() {
         return txtStyle;
     }
+
+    public ButtonGroup getBtngTrans() {
+        return btngTrans;
+    }
+    
 
     
     /**

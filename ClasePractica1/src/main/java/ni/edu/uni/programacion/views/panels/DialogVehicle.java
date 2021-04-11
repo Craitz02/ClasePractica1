@@ -6,10 +6,12 @@
 package ni.edu.uni.programacion.views.panels;
 
 import java.awt.BorderLayout;
+import java.beans.PropertyChangeListener;
 import java.io.FileNotFoundException;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import ni.edu.uni.programacion.controllers.PnlVehicleController;
+import ni.edu.uni.programacion.controllers.PnlVehicleShowController;
 
 /**
  *
@@ -19,6 +21,8 @@ public class DialogVehicle extends javax.swing.JDialog {
 
     PnlVehicle pnlVehicle;
     PnlVehicleController pnlVehicleController;
+    PnlShow pnlShow;
+    PnlVehicleShowController showController;
 
     /**
      * Creates new form DialogVehicle
@@ -28,11 +32,8 @@ public class DialogVehicle extends javax.swing.JDialog {
         initComponents();
 
     }
-
-    public JPanel getPnlContent() {
-        return pnlContent;
-    }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,13 +49,12 @@ public class DialogVehicle extends javax.swing.JDialog {
         setTitle("New Vehicle");
 
         pnlContent.setLayout(new java.awt.BorderLayout());
-        try {
+        try{
             pnlVehicle = new PnlVehicle();
             pnlVehicleController = new PnlVehicleController(pnlVehicle);
-        } catch (FileNotFoundException ex) {
+        }catch(FileNotFoundException e){
         }
-
-        addComponent(pnlVehicle);
+        pnlContent.add(pnlVehicle, BorderLayout.CENTER);
         getContentPane().add(pnlContent, java.awt.BorderLayout.CENTER);
 
         getAccessibleContext().setAccessibleName("Add Vehicle");
@@ -62,11 +62,51 @@ public class DialogVehicle extends javax.swing.JDialog {
         setBounds(0, 0, 400, 600);
     }// </editor-fold>//GEN-END:initComponents
     
-    private void addComponent(JComponent component) {
-        pnlContent.removeAll();
-        pnlContent.add(component, BorderLayout.CENTER);
-        pnlContent.repaint();
-        this.validate();
+    private void formWindowOpened(java.awt.event.WindowEvent evt)                                  
+    {                                      
+        bindingDataToComponents();
+    }   
+    public void setPnlViewVehicleReference(PnlShow pnlshow, PnlVehicleShowController showController)
+    {
+        this.pnlShow = pnlShow;
+        this.showController = showController;
+        
+        if(pnlShow== null)
+            return;
+    }
+    public void bindingDataToComponents() {
+        if(pnlShow == null)
+            return;
+        int row = pnlShow.getTblShow().getSelectedRow();
+        bindingDataToComponents(row);
+    }
+    public void bindingDataToComponents(int row) {
+
+        pnlVehicle.getTxtStock().setText(pnlShow.getTblShow().getValueAt(row, 0).toString().trim());
+        pnlVehicle.getSpnYear().setValue(pnlShow.getTblShow().getValueAt(row, 1));
+        pnlVehicle.getCmbMake().setSelectedItem(pnlShow.getTblShow().getValueAt(row, 2).toString().trim());
+        pnlVehicle.getCmbModel().setSelectedItem(pnlShow.getTblShow().getValueAt(row, 3).toString().trim());
+        pnlVehicle.getTxtStyle().setText(pnlShow.getTblShow().getValueAt(row, 4).toString().trim());
+        pnlVehicle.getFmtVin().setText(pnlShow.getTblShow().getValueAt(row, 5).toString().trim());
+        pnlVehicle.getCmbEColor().setSelectedItem(pnlShow.getTblShow().getValueAt(row, 6).toString().trim());
+        pnlVehicle.getCmbIColor().setSelectedItem(pnlShow.getTblShow().getValueAt(row, 7).toString().trim());
+        Integer miles = Integer.parseInt(pnlShow.getTblShow().getValueAt(row, 8).toString());
+        Double price = Double.parseDouble(pnlShow.getTblShow().getValueAt(row, 9).toString());
+        pnlVehicle.getSpnMiles().getModel().setValue(miles);
+        pnlVehicle.getSpnPrice().getModel().setValue(price);
+        
+        if(pnlShow.getTblShow().getValueAt(row, 10).toString() == "AUTOMATIC")
+            pnlVehicle.getBtngTrans().setSelected(pnlVehicle.getRbtnAut().getModel(), true);
+        else
+            pnlVehicle.getBtngTrans().setSelected(pnlVehicle.getRbtnMan().getModel(), true);
+        pnlVehicle.getTxtEngine().setText(pnlShow.getTblShow().getValueAt(row, 11).toString().trim());
+        pnlVehicle.getTxtImage().setText(pnlShow.getTblShow().getValueAt(row, 12).toString().trim());
+        pnlVehicle.getCmbStatus().setSelectedItem(pnlShow.getTblShow().getValueAt(row, 13).toString().trim());
+        
+        int vehicleId = showController.getVehicles().get(row).getId();
+
+        pnlVehicleController.setVehicleIdToEdit(vehicleId);
+        pnlVehicleController.setIsUpdate(true);
     }
 
     /**
