@@ -91,12 +91,8 @@ public class IFrmVehicle extends javax.swing.JInternalFrame {
         pnlTable.setBackground(new java.awt.Color(153, 204, 255));
         pnlTable.setLayout(new java.awt.BorderLayout());
 
-        try {
-            pnlShow=new PnlShow();
-            pnlShowController = new PnlVehicleShowController(pnlShow);
-        } catch (IOException ex) {
-            Logger.getLogger(FrmVehicles.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        pnlShow=new PnlShow();
+        pnlShowController = new PnlVehicleShowController(pnlShow);
 
         addComponent(pnlShow);
         getContentPane().add(pnlTable, java.awt.BorderLayout.CENTER);

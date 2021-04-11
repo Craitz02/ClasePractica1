@@ -13,9 +13,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -28,76 +33,87 @@ import ni.edu.uni.programacion.views.panels.PnlShow;
  *
  * @author Usuario
  */
-public class PnlVehicleShowController {
+public class PnlVehicleShowController implements Observer{
 
-    private PnlShow pnlShow;
+   private PnlShow pnlShow;
+    private JsonVehicleDaoImpl jsonVehicleDaoImpl;
+    private DefaultTableModel tblViewModel;
+    private List<Vehicle> vehicles;
+    private String[] HEADERS = new String[]{"StockNumber", "Year", "Make", "Model", "Style",
+        "Vin", "Exterior color", "Interior color", "Miles", "Price", "Transmission", "Engine", "Image", "Status"};
+    private TableRowSorter<DefaultTableModel> tblRowSorter;
 
-    private DefaultTableModel model;
-    private Gson gson;
-    private JsonVehicleDaoImpl jvdao;
-    private List<Vehicle> list = new ArrayList<Vehicle>();
-
-    public PnlVehicleShowController(PnlShow pnlShow) throws FileNotFoundException {
+    public PnlVehicleShowController(PnlShow pnlShow)
+    {
         this.pnlShow = pnlShow;
-        initcomponent();
+        initComponent();
     }
 
-    private void initcomponent() throws FileNotFoundException {
-        model = (DefaultTableModel) pnlShow.getTblShow().getModel();
-        jvdao = new JsonVehicleDaoImpl();
-        pnlShow.getBtnShow().addActionListener((e) -> {
-            try {
-                btnShowAllActionListener(e);
-            } catch (IOException ex) {
-                Logger.getLogger(PnlVehicleShowController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        pnlShow.getTxtSearch().addKeyListener(new KeyAdapter() {
-            public void keyReleased(final KeyEvent e) {
-                TableRowSorter TFilter = new TableRowSorter(pnlShow.getTblShow().getModel());
-                String s = pnlShow.getTxtSearch().getText();
+    private void initComponent() 
+    {
+        try 
+        {
+            jsonVehicleDaoImpl = new JsonVehicleDaoImpl();
 
-                pnlShow.getTxtSearch().setText(s);
+            loadTable();
 
-                FilterTabe(pnlShow.getCmbSearch().getSelectedIndex(), TFilter);
-            }
-        });
+            pnlShow.getTxtSearch().addKeyListener(new KeyAdapter()
+            {
+                @Override
+                public void keyTyped(KeyEvent e)
+                {
+                    txtFinderKeyTyped(e);
+                }
+            });
 
-    }
-
-    private void FilterTabe(int a, TableRowSorter filter) {
-        filter.setRowFilter(RowFilter.regexFilter(pnlShow.getTxtSearch().getText(), a));
-        pnlShow.getTblShow().setRowSorter(filter);
-    }
-
-    private void btnShowAllActionListener(ActionEvent e) throws IOException {
-        list = (List<Vehicle>) jvdao.getAll();
-        while (list.size() > pnlShow.getTblShow().getRowCount()) {
-            model.addRow(new Object[]{});
+        } catch (FileNotFoundException ex)
+        {
+            Logger.getLogger(PnlVehicleShowController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(PnlVehicleShowController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        for (int i = 0; i < list.size(); i++) {
-            pnlShow.getTblShow().setValueAt((i + 1), i, 0);
-            pnlShow.getTblShow().setValueAt(list.get(i).getStockNumber(), i, 1);
-            pnlShow.getTblShow().setValueAt(list.get(i).getYear(), i, 2);
-            pnlShow.getTblShow().setValueAt(list.get(i).getMake(), i, 3);
-            pnlShow.getTblShow().setValueAt(list.get(i).getModel(), i, 4);
-            pnlShow.getTblShow().setValueAt(list.get(i).getStyle(), i, 5);
-            pnlShow.getTblShow().setValueAt(list.get(i).getVin(), i, 6);
-            pnlShow.getTblShow().setValueAt(list.get(i).getExteriorColor(), i, 7);
-            pnlShow.getTblShow().setValueAt(list.get(i).getInteriorColor(), i, 8);
-            pnlShow.getTblShow().setValueAt(list.get(i).getMiles(), i, 9);
-            pnlShow.getTblShow().setValueAt(list.get(i).getPrice(), i, 10);
-            pnlShow.getTblShow().setValueAt(list.get(i).getTransmission().toString(), i, 11);
-            pnlShow.getTblShow().setValueAt(list.get(i).getEngine(), i, 12);
-            pnlShow.getTblShow().setValueAt(list.get(i).getImage(), i, 13);
-
-        }
-        pnlShow.getBtnShow().setText("Mostrar Todo");
     }
 
-    public List<Vehicle> getVehicles() {
-        return list;
+    private void txtFinderKeyTyped(KeyEvent e)
+    {
+        RowFilter<DefaultTableModel, Object> rf = null;
+        rf = RowFilter.regexFilter(pnlShow.getTxtSearch().getText(), 0, 1, 2, 3, 4, 5, 6, 7, 8);
+        tblRowSorter.setRowFilter(rf);
+    }
+
+    private void loadTable() throws IOException
+    {
+        tblViewModel = new DefaultTableModel(getData(), HEADERS);
+        tblRowSorter = new TableRowSorter<>(tblViewModel);
+
+        pnlShow.getTblShow().setModel(tblViewModel);
+        pnlShow.getTblShow().setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+        pnlShow.getTblShow().setRowSorter(tblRowSorter);
+    }
+
+    private Object[][] getData() throws IOException
+    {
+        vehicles = jsonVehicleDaoImpl.getAll().stream().collect(Collectors.toList());
+        Object data[][] = new Object[vehicles.size()][vehicles.get(0).asArray().length];
+
+        IntStream.range(0, vehicles.size()).forEach(i ->
+        {
+            data[i] = vehicles.get(i).asArray();
+        });
+        
+        return data;
+    }
+
+    public List<Vehicle> getVehicles()
+    {
+        return vehicles;
+    }
+    
+    @Override
+    public void update(Observable o, Object o1) {
+       
+       
     }
 
 }

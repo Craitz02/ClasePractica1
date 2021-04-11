@@ -119,11 +119,7 @@ public class FrmVehicles extends javax.swing.JFrame {
            pnlShow=new PnlShow();
             //try
             {
-                try {
-                    pnlShowController = new PnlVehicleShowController(pnlShow);
-                } catch (IOException ex) {
-                    Logger.getLogger(FrmVehicles.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            pnlShowController = new PnlVehicleShowController(pnlShow);
             }
             /*catch (FileNotFoundException ex) {
                 Logger.getLogger(FrmVehicle.class.getName()).log(Level.SEVERE, null, ex);

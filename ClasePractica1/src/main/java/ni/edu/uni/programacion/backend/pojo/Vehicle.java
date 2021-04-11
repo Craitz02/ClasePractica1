@@ -172,7 +172,27 @@ public class Vehicle {
     public void setImage(String image) {
         this.image = image;
     }
-    
+    public Object[] asArray()
+    {
+        Object[] obj = new Object[14];
+        
+        obj[0] = stockNumber;
+        obj[1] = year;
+        obj[2] = make;
+        obj[3] = model;
+        obj[4] = style;
+        obj[5] = vin;
+        obj[6] = exteriorColor;
+        obj[7] = interiorColor;
+        obj[8] = miles;
+        obj[9] = price;
+        obj[10] = transmission;
+        obj[11] = engine;
+        obj[12] = image;
+        obj[13] = status;
+        
+        return obj;
+    }
     
     
 }

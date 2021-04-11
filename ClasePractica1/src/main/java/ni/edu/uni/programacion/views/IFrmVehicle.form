@@ -90,7 +90,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePre" type="java.lang.String" value="&#xa;try {&#xa;        pnlShow=new PnlShow();&#xa;        pnlShowController = new PnlVehicleShowController(pnlShow);&#xa;    } catch (IOException ex) {&#xa;        Logger.getLogger(FrmVehicles.class.getName()).log(Level.SEVERE, null, ex);&#xa;    }         &#xa;                &#xa;addComponent(pnlShow);&#xa;"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePre" type="java.lang.String" value="&#xa;pnlShow=new PnlShow();&#xa;pnlShowController = new PnlVehicleShowController(pnlShow);&#xa;        &#xa;                &#xa;addComponent(pnlShow);&#xa;"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">

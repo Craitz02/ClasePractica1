@@ -16,25 +16,12 @@ import javax.swing.JTextField;
  */
 public class PnlShow extends javax.swing.JPanel {
 
-    public JButton getBtnSearch() {
-        return btnSearch;
-    }
-
     public JTextField getTxtSearch() {
         return txtSearch;
     }
 
     public void setTxtSearch(JTextField txtSearch) {
         this.txtSearch = txtSearch;
-    }
-    
-
-    public JButton getBtnShow() {
-        return btnShow;
-    }
-
-    public JComboBox<String> getCmbSearch() {
-        return cmbSearch;
     }
 
     public JTable getjTable1() {
@@ -43,14 +30,6 @@ public class PnlShow extends javax.swing.JPanel {
 
     public JTextField getjTextField1() {
         return txtSearch;
-    }
-
-    public void setBtnSearch(JButton btnSearch) {
-        this.btnSearch = btnSearch;
-    }
-
-    public void setCmbSearch(JComboBox<String> cmbSearch) {
-        this.cmbSearch = cmbSearch;
     }
 
     public void setjTable1(JTable jTable1) {
@@ -68,14 +47,12 @@ public class PnlShow extends javax.swing.JPanel {
     public void setTblShow(JTable tblShow) {
         this.tblShow = tblShow;
     }
-    
-    
 
     /**
      * Creates new form PnlShow
      */
     public PnlShow() {
-        
+
         initComponents();
     }
 
@@ -90,9 +67,6 @@ public class PnlShow extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
-        cmbSearch = new javax.swing.JComboBox<>();
-        btnSearch = new javax.swing.JButton();
-        btnShow = new javax.swing.JButton();
         txtSearch = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -104,26 +78,16 @@ public class PnlShow extends javax.swing.JPanel {
         jPanel1.setForeground(new java.awt.Color(153, 153, 153));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        cmbSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nº Records", "Stock Number", "Year", "Make", "Model", "Style", "VIN", "Exterior Color", "Interior Color", "Miles", "Price", "Transmission", "Engine", "Imagen Path", "Status" }));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        jPanel1.add(cmbSearch, gridBagConstraints);
-
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Webp.net-resizeimage.png"))); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        jPanel1.add(btnSearch, gridBagConstraints);
-
-        btnShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Webp.net-resizeimage (1).png"))); // NOI18N
-        btnShow.setText("Mostrar Todo");
-        jPanel1.add(btnShow, new java.awt.GridBagConstraints());
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         jPanel1.add(txtSearch, gridBagConstraints);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
@@ -134,29 +98,13 @@ public class PnlShow extends javax.swing.JPanel {
         tblShow.setForeground(new java.awt.Color(0, 0, 0));
         tblShow.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "ID", "Stock Number ", "Year", "Make", "Model", "Style", "VIN", "Exterior Color", "Interior Color", "Miles", "Price", "Transmision", "Engine", "Image"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-        });
+        ));
         jScrollPane1.setViewportView(tblShow);
-        if (tblShow.getColumnModel().getColumnCount() > 0) {
-            tblShow.getColumnModel().getColumn(3).setResizable(false);
-            tblShow.getColumnModel().getColumn(6).setResizable(false);
-        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -166,17 +114,18 @@ public class PnlShow extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnShow;
-    private javax.swing.JComboBox<String> cmbSearch;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
