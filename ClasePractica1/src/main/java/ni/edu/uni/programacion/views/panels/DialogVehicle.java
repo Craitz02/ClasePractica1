@@ -21,8 +21,8 @@ public class DialogVehicle extends javax.swing.JDialog {
 
     PnlVehicle pnlVehicle;
     PnlVehicleController pnlVehicleController;
-    PnlShow pnlShow;
-    PnlVehicleShowController showController;
+    PnlShow pnlShow=null;
+    PnlVehicleShowController showController=null;
 
     /**
      * Creates new form DialogVehicle
@@ -54,6 +54,7 @@ public class DialogVehicle extends javax.swing.JDialog {
             pnlVehicleController = new PnlVehicleController(pnlVehicle);
         }catch(FileNotFoundException e){
         }
+        pnlVehicleController.setIsNew(true);
         pnlContent.add(pnlVehicle, BorderLayout.CENTER);
         getContentPane().add(pnlContent, java.awt.BorderLayout.CENTER);
 

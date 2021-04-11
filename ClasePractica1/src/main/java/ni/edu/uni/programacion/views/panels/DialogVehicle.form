@@ -32,7 +32,7 @@
   <SubComponents>
     <Container class="javax.swing.JPanel" name="pnlContent">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePre" type="java.lang.String" value="try{&#xa;pnlVehicle = new PnlVehicle();&#xa;pnlVehicleController = new PnlVehicleController(pnlVehicle);&#xa;}catch(FileNotFoundException e){&#xa;}&#xa;pnlContent.add(pnlVehicle, BorderLayout.CENTER);&#xa;"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePre" type="java.lang.String" value="try{&#xa;pnlVehicle = new PnlVehicle();&#xa;pnlVehicleController = new PnlVehicleController(pnlVehicle);&#xa;}catch(FileNotFoundException e){&#xa;}&#xa;pnlVehicleController.setIsNew(true);&#xa;pnlContent.add(pnlVehicle, BorderLayout.CENTER);&#xa;"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
