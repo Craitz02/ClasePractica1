@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -176,5 +177,9 @@ public class PnlVehicleController {
         if(v.getEngine().isBlank() || v.getEngine().isEmpty()){
             throw new Exception("Engine can not be empty or blank.");
         }
+    }
+
+    public void addObserver(Observer ob) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

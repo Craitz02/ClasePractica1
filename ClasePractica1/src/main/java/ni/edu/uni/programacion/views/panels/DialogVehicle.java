@@ -8,6 +8,7 @@ package ni.edu.uni.programacion.views.panels;
 import java.awt.BorderLayout;
 import java.beans.PropertyChangeListener;
 import java.io.FileNotFoundException;
+import java.util.Observer;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import ni.edu.uni.programacion.controllers.PnlVehicleController;
@@ -19,8 +20,8 @@ import ni.edu.uni.programacion.controllers.PnlVehicleShowController;
  */
 public class DialogVehicle extends javax.swing.JDialog {
 
-    PnlVehicle pnlVehicle;
-    PnlVehicleController pnlVehicleController;
+    private PnlVehicle pnlVehicle;
+    private PnlVehicleController pnlVehicleController;
     PnlShow pnlShow=null;
     PnlVehicleShowController showController=null;
 
@@ -31,6 +32,17 @@ public class DialogVehicle extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
 
+    }
+    public void addObserver(Observer ob){
+        pnlVehicleController.addObserver(ob);
+    }
+    
+    public PnlShow getPnlShow() {
+        return pnlShow;
+    }
+
+    public PnlVehicleShowController getPnlShowController() {
+        return showController;
     }
     
     
@@ -49,25 +61,41 @@ public class DialogVehicle extends javax.swing.JDialog {
         setTitle("New Vehicle");
 
         pnlContent.setLayout(new java.awt.BorderLayout());
-        try{
+        addWindowListener(new java.awt.event.WindowAdapter()
+            {
+                public void windowClosing(java.awt.event.WindowEvent evt)
+                {
+                    formWindowClosing(evt);
+                }
+                public void windowOpened(java.awt.event.WindowEvent evt)
+                {
+                    formWindowOpened(evt);
+                }
+            });
             pnlVehicle = new PnlVehicle();
-            pnlVehicleController = new PnlVehicleController(pnlVehicle);
-        }catch(FileNotFoundException e){
-        }
-        pnlVehicleController.setIsNew(true);
-        pnlContent.add(pnlVehicle, BorderLayout.CENTER);
-        getContentPane().add(pnlContent, java.awt.BorderLayout.CENTER);
+            try{
+                pnlVehicleController = new PnlVehicleController(pnlVehicle);
+            }catch(FileNotFoundException e){
+            }
+            pnlVehicleController.setIsNew(true);
+            pnlContent.add(pnlVehicle, BorderLayout.CENTER);
+            getContentPane().add(pnlContent, java.awt.BorderLayout.CENTER);
 
-        getAccessibleContext().setAccessibleName("Add Vehicle");
+            getAccessibleContext().setAccessibleName("Add Vehicle");
 
-        setBounds(0, 0, 400, 600);
-    }// </editor-fold>//GEN-END:initComponents
+            setBounds(0, 0, 400, 600);
+        }// </editor-fold>//GEN-END:initComponents
     
     private void formWindowOpened(java.awt.event.WindowEvent evt)                                  
     {                                      
-        bindingDataToComponents();
-    }   
-    public void setPnlViewVehicleReference(PnlShow pnlshow, PnlVehicleShowController showController)
+        getData();
+    }                                 
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt)                                   
+    {                                       
+        
+    } 
+    public void setPnlShowReference(PnlShow pnlShow, PnlVehicleShowController showController)
     {
         this.pnlShow = pnlShow;
         this.showController = showController;
@@ -75,13 +103,13 @@ public class DialogVehicle extends javax.swing.JDialog {
         if(pnlShow== null)
             return;
     }
-    public void bindingDataToComponents() {
+    public void getData() {
         if(pnlShow == null)
             return;
         int row = pnlShow.getTblShow().getSelectedRow();
-        bindingDataToComponents(row);
+        getData(row);
     }
-    public void bindingDataToComponents(int row) {
+    public void getData(int row) {
 
         pnlVehicle.getTxtStock().setText(pnlShow.getTblShow().getValueAt(row, 0).toString().trim());
         pnlVehicle.getSpnYear().setValue(pnlShow.getTblShow().getValueAt(row, 1));

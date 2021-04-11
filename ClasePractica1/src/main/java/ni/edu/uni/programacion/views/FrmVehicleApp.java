@@ -115,7 +115,7 @@ public class FrmVehicleApp extends javax.swing.JFrame {
     private void mniVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniVehicleActionPerformed
         ifrmVehicle = new IFrmVehicle();
         this.dskPane.add(ifrmVehicle);
-        ifrmVehicle.show();
+        ifrmVehicle.setVisible(true);
     }//GEN-LAST:event_mniVehicleActionPerformed
 
     /**

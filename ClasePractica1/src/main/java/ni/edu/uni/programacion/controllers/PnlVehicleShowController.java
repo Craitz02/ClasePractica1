@@ -5,37 +5,30 @@
  */
 package ni.edu.uni.programacion.controllers;
 
-import com.google.gson.Gson;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import ni.edu.uni.programacion.backend.dao.implementation.JsonVehicleDaoImpl;
 import ni.edu.uni.programacion.backend.pojo.Vehicle;
-import ni.edu.uni.programacion.backend.pojo.VehicleSubModel;
 import ni.edu.uni.programacion.views.panels.PnlShow;
 
 /**
  *
  * @author Usuario
  */
-public class PnlVehicleShowController implements Observer{
+public class PnlVehicleShowController {
 
-   private PnlShow pnlShow;
+    private PnlShow pnlShow;
     private JsonVehicleDaoImpl jsonVehicleDaoImpl;
     private DefaultTableModel tblViewModel;
     private List<Vehicle> vehicles;
@@ -43,77 +36,83 @@ public class PnlVehicleShowController implements Observer{
         "Vin", "Exterior color", "Interior color", "Miles", "Price", "Transmission", "Engine", "Image", "Status"};
     private TableRowSorter<DefaultTableModel> tblRowSorter;
 
-    public PnlVehicleShowController(PnlShow pnlShow)
-    {
+    public PnlVehicleShowController(PnlShow pnlShow) {
         this.pnlShow = pnlShow;
         initComponent();
     }
-
-    private void initComponent() 
-    {
-        try 
-        {
+    
+    public DefaultTableModel getTblViewModel() {
+        return tblViewModel;
+    }
+    
+    private void initComponent() {
+        try {
             jsonVehicleDaoImpl = new JsonVehicleDaoImpl();
 
             loadTable();
 
-            pnlShow.getTxtSearch().addKeyListener(new KeyAdapter()
-            {
+            pnlShow.getTxtSearch().addKeyListener(new KeyAdapter() {
                 @Override
-                public void keyTyped(KeyEvent e)
-                {
+                public void keyTyped(KeyEvent e) {
                     txtFinderKeyTyped(e);
                 }
             });
 
-        } catch (FileNotFoundException ex)
-        {
+        } catch (FileNotFoundException ex) {
             Logger.getLogger(PnlVehicleShowController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             Logger.getLogger(PnlVehicleShowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void txtFinderKeyTyped(KeyEvent e)
-    {
+    private void txtFinderKeyTyped(KeyEvent e) {
         RowFilter<DefaultTableModel, Object> rf = null;
         rf = RowFilter.regexFilter(pnlShow.getTxtSearch().getText(), 0, 1, 2, 3, 4, 5, 6, 7, 8);
         tblRowSorter.setRowFilter(rf);
     }
 
-    private void loadTable() throws IOException
-    {
-        tblViewModel = new DefaultTableModel(getData(), HEADERS);
-        tblRowSorter = new TableRowSorter<>(tblViewModel);
+    private void loadTable() throws IOException {
+        vehicles = jsonVehicleDaoImpl.getAll().stream().collect(Collectors.toList());
+        tblViewModel = new DefaultTableModel(getData(), HEADERS) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if (column == 14) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+        };
+
+        tblRowSorter = new TableRowSorter<DefaultTableModel>(tblViewModel) {
+            @Override
+            public boolean isSortable(int column) {
+                return false;
+                
+            }
+
+        };
 
         pnlShow.getTblShow().setModel(tblViewModel);
         pnlShow.getTblShow().setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
         pnlShow.getTblShow().setRowSorter(tblRowSorter);
     }
 
-    private Object[][] getData() throws IOException
-    {
+    private Object[][] getData() throws IOException {
         vehicles = jsonVehicleDaoImpl.getAll().stream().collect(Collectors.toList());
         Object data[][] = new Object[vehicles.size()][vehicles.get(0).asArray().length];
 
-        IntStream.range(0, vehicles.size()).forEach(i ->
-        {
+        IntStream.range(0, vehicles.size()).forEach(i
+                -> {
             data[i] = vehicles.get(i).asArray();
         });
-        
+
         return data;
     }
 
-    public List<Vehicle> getVehicles()
-    {
+    public List<Vehicle> getVehicles() {
         return vehicles;
-    }
-    
-    @Override
-    public void update(Observable o, Object o1) {
-       
-       
     }
 
 }

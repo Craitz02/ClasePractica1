@@ -6,16 +6,18 @@
 package ni.edu.uni.programacion.views;
 
 import java.awt.BorderLayout;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import ni.edu.uni.programacion.controllers.PnlVehicleController;
+import javax.swing.table.DefaultTableModel;
+import ni.edu.uni.programacion.backend.dao.implementation.JsonVehicleDaoImpl;
+import ni.edu.uni.programacion.backend.pojo.Vehicle;
 import ni.edu.uni.programacion.controllers.PnlVehicleShowController;
 import ni.edu.uni.programacion.views.panels.DialogVehicle;
 import ni.edu.uni.programacion.views.panels.PnlShow;
-import ni.edu.uni.programacion.views.panels.PnlVehicle;
 
 /**
  *
@@ -94,7 +96,7 @@ public class IFrmVehicle extends javax.swing.JInternalFrame {
         pnlShow=new PnlShow();
         pnlShowController = new PnlVehicleShowController(pnlShow);
 
-        addComponent(pnlShow);
+        pnlTable.add(pnlShow, BorderLayout.CENTER);
         getContentPane().add(pnlTable, java.awt.BorderLayout.CENTER);
 
         pack();
@@ -102,30 +104,59 @@ public class IFrmVehicle extends javax.swing.JInternalFrame {
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         dialogVehicle = new DialogVehicle(null, true);
+        //dialogVehicle.addObserver(pnlShowController.getTblViewModel());
         dialogVehicle.setVisible(true);
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         if (pnlShow.getTblShow().getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(null, "Seleccione una fila si desea editar sus campos.",
+            JOptionPane.showMessageDialog(null, "Porfavor seleccione una fila.",
                     "Updating message", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         dialogVehicle= new DialogVehicle(null, true);
-        dialogVehicle.setPnlViewVehicleReference(pnlShow, pnlShowController);
+        dialogVehicle.setPnlShowReference(pnlShow, pnlShowController);
         dialogVehicle.setVisible(true);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        if(pnlShow.getTblShow().getSelectedRow() == -1)
+        {
+            JOptionPane.showMessageDialog(null, "Select a vehicle to delete.",
+                    "Delete message",JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        int op = JOptionPane.showConfirmDialog(null, "Are you sure?","Delete", JOptionPane.YES_NO_OPTION);
+        
+        if(op == JOptionPane.NO_OPTION)
+            return;
+        
+        int row = pnlShow.getTblShow().getSelectedRow();
+        int vehicleId = pnlShowController.getVehicles().get(row).getId();
+
+        Vehicle vehicle = new Vehicle();
+        vehicle.setId(vehicleId);
+        JsonVehicleDaoImpl jsonVehicleDaoImpl;
+        try
+        {
+            jsonVehicleDaoImpl = new JsonVehicleDaoImpl();
+            jsonVehicleDaoImpl.delete(vehicle);
+            
+            DefaultTableModel modelo =  (DefaultTableModel) pnlShow.getTblShow().getModel(); 
+            modelo.removeRow(row);
+        } catch (FileNotFoundException ex)
+        {
+            Logger.getLogger(IFrmVehicle.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(IFrmVehicle.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(null, "The vehicle was sucessfully deleted",
+                "Delete message",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void addComponent(JComponent component) {
-        pnlTable.removeAll();
-        pnlTable.add(component, BorderLayout.CENTER);
-        pnlTable.repaint();
-        this.validate();
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
