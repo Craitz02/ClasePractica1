@@ -6,6 +6,7 @@
 package ni.edu.uni.programacion.views;
 
 import javax.swing.JButton;
+import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import ni.edu.uni.programacion.controllers.FrmTreeController;
 
@@ -47,6 +48,11 @@ public class FrmTree extends javax.swing.JFrame {
     public void setTreeAcount(JTree TreeAcount) {
         this.TreeAcount = TreeAcount;
     }
+
+    public JPopupMenu getPmnTree() {
+        return pmnTree;
+    }
+    
     
 
     /**
@@ -58,12 +64,21 @@ public class FrmTree extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pmnTree = new javax.swing.JPopupMenu();
+        mniAdd = new javax.swing.JMenuItem();
+        mniRemove = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         BtnAdd = new javax.swing.JButton();
         BtnRemove = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TreeAcount = new javax.swing.JTree();
+
+        mniAdd.setText("Add");
+        pmnTree.add(mniAdd);
+
+        mniRemove.setText("Remove");
+        pmnTree.add(mniRemove);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tree Demo");
@@ -82,6 +97,11 @@ public class FrmTree extends javax.swing.JFrame {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         TreeAcount.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        TreeAcount.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TreeAcountMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TreeAcount);
 
         jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -90,6 +110,10 @@ public class FrmTree extends javax.swing.JFrame {
 
         setBounds(0, 0, 416, 368);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void TreeAcountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TreeAcountMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TreeAcountMouseClicked
 
     /**
      * @param args the command line arguments
@@ -133,5 +157,8 @@ public class FrmTree extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem mniAdd;
+    private javax.swing.JMenuItem mniRemove;
+    private javax.swing.JPopupMenu pmnTree;
     // End of variables declaration//GEN-END:variables
 }
