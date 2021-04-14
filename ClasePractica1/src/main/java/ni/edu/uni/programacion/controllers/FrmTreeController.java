@@ -48,11 +48,22 @@ public class FrmTreeController {
                 treeAccountMouseListener(e);
             }
         });
-
+        frmTree.getMniAdd().addActionListener((e)->{
+            BtnAddActionListener(e);
+        });
+        frmTree.getMniRemove().addActionListener((e)->{
+            BtnRemoveActionListener(e);
+        });
+        frmTree.getBtnClear().addActionListener((e)->{
+            BtnClearActionListener(e);
+        });
     }
 
     public void BtnAddActionListener(ActionEvent e) {
         DefaultMutableTreeNode node = getSelectedNode();
+        if (node ==null){
+            return;
+        }
 
         String accountname = JOptionPane.showInputDialog(null, "Account Name", "Input Dialog", JOptionPane.INFORMATION_MESSAGE);
         int childCount = node.getChildCount();
@@ -67,14 +78,22 @@ public class FrmTreeController {
         if (node == null || node.isRoot()) {
             return;
         }
+        treemodel.removeNodeFromParent(node);
+    }
+    
+    public void BtnClearActionListener (ActionEvent e){
+       root.removeAllChildren();
+       treemodel.reload();
     }
 
     private void treeAccountMouseListener(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON3) {
-            Component c = frmTree.getTreeAcount().getComponentAt(e.getX(), e.getY());
-            if (node==null){
+            TreePath c = frmTree.getTreeAcount().getPathForLocation(e.getX(), e.getY());
+            if (c==null){
             return;
             }
+            frmTree.getTreeAcount().setSelectionPath(c);
+            DefaultMutableTreeNode node= (DefaultMutableTreeNode)c.getLastPathComponent();
             frmTree.getPmnTree().show(frmTree.getTreeAcount(), e.getX(), e.getY());
             
         }
@@ -88,5 +107,6 @@ public class FrmTreeController {
 
         return (DefaultMutableTreeNode) treePath.getLastPathComponent();
     }
+    
 
 }

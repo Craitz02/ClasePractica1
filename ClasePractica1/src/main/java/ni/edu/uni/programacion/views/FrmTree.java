@@ -6,6 +6,7 @@
 package ni.edu.uni.programacion.views;
 
 import javax.swing.JButton;
+import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import ni.edu.uni.programacion.controllers.FrmTreeController;
@@ -52,6 +53,26 @@ public class FrmTree extends javax.swing.JFrame {
     public JPopupMenu getPmnTree() {
         return pmnTree;
     }
+
+    public JButton getBtnClear() {
+        return BtnClear;
+    }
+
+    public void setBtnClear(JButton BtnClear) {
+        this.BtnClear = BtnClear;
+    }
+
+    public JMenuItem getMniAdd() {
+        return mniAdd;
+    }
+
+    public JMenuItem getMniClear() {
+        return mniClear;
+    }
+
+    public JMenuItem getMniRemove() {
+        return mniRemove;
+    }
     
     
 
@@ -67,9 +88,11 @@ public class FrmTree extends javax.swing.JFrame {
         pmnTree = new javax.swing.JPopupMenu();
         mniAdd = new javax.swing.JMenuItem();
         mniRemove = new javax.swing.JMenuItem();
+        mniClear = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         BtnAdd = new javax.swing.JButton();
         BtnRemove = new javax.swing.JButton();
+        BtnClear = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TreeAcount = new javax.swing.JTree();
@@ -79,6 +102,9 @@ public class FrmTree extends javax.swing.JFrame {
 
         mniRemove.setText("Remove");
         pmnTree.add(mniRemove);
+
+        mniClear.setText("jMenuItem1");
+        pmnTree.add(mniClear);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tree Demo");
@@ -90,6 +116,14 @@ public class FrmTree extends javax.swing.JFrame {
 
         BtnRemove.setText("Remove");
         jPanel1.add(BtnRemove);
+
+        BtnClear.setText("Clear");
+        BtnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnClearActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnClear);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
@@ -114,6 +148,10 @@ public class FrmTree extends javax.swing.JFrame {
     private void TreeAcountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TreeAcountMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_TreeAcountMouseClicked
+
+    private void BtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnClearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,12 +190,14 @@ public class FrmTree extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAdd;
+    private javax.swing.JButton BtnClear;
     private javax.swing.JButton BtnRemove;
     private javax.swing.JTree TreeAcount;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem mniAdd;
+    private javax.swing.JMenuItem mniClear;
     private javax.swing.JMenuItem mniRemove;
     private javax.swing.JPopupMenu pmnTree;
     // End of variables declaration//GEN-END:variables
